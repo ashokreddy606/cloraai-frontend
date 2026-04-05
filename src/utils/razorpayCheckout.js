@@ -1,4 +1,5 @@
 const RAZORPAY_SCRIPT_URL = 'https://checkout.razorpay.com/v1/checkout.js'
+const FALLBACK_TEST_KEY_ID = 'rzp_test_SZs9g2yYFvOBCq'
 
 function loadRazorpayScript() {
   return new Promise((resolve) => {
@@ -29,12 +30,7 @@ export async function openRazorpayCheckout({
     return
   }
 
-  const key = import.meta.env.VITE_RAZORPAY_KEY_ID
-
-  if (!key || key === 'YOUR_KEY_ID') {
-    alert('Razorpay key is missing. Set VITE_RAZORPAY_KEY_ID in your deployment environment and redeploy.')
-    return
-  }
+  const key = import.meta.env.VITE_RAZORPAY_KEY_ID || FALLBACK_TEST_KEY_ID
 
   const options = {
     key,
