@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clora AI - Razorpay </title>
+    <style>
+      :root {
+        --bg: #f3f7fc;
+        --card: #ffffff;
+        --text: #10233d;
+        --muted: #5b6b7f;
+        --brand: #0f6fde;
+        --brand-hover: #0c5ebd;
+        --border: #dfe9f5;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(180deg, #f7fbff 0%, #edf4fb 100%);
+        color: var(--text);
+      }
+
+      .container {
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+      }
+
+      .app-name {
+        margin: 0 0 18px;
+        font-size: 30px;
+        font-weight: 700;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 10px 30px rgba(12, 42, 83, 0.08);
+      }
+
+      .plan {
+        margin: 0;
+        font-size: 15px;
+        color: var(--muted);
+      }
+
+      .price {
+        margin: 10px 0 18px;
+        font-size: 42px;
+        font-weight: 700;
+      }
+
+      .buy-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 18px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #fff;
+        background: var(--brand);
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .buy-btn:hover {
+        background: var(--brand-hover);
+      }
+
+      .note {
+        margin-top: 16px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <h1 class="app-name">Clora AI</h1>
+
+      <section class="card">
+        <p class="plan">Monthly Plan</p>
+        <p class="price">₹299</p>
+        <button id="buyNowBtn" class="buy-btn" type="button">Buy Now</button>
+      </section>
+
+      <p class="note">This is a demo payment page for testing Razorpay integration</p>
+    </main>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      document.getElementById("buyNowBtn").addEventListener("click", function () {
+        var options = {
+          key: "rzp_test_SZs9g2yYFvOBCq",
+          amount: 29900,
+          currency: "INR",
+          name: "Clora AI",
+          description: "Monthly Plan",
+          prefill: {
+            email: "user@example.com",
+            contact: "9876543210"
+          },
+          theme: {
+            color: "#0f6fde"
+          }
+        };
+
+        var rzp = new Razorpay(options);
+        rzp.open();
+      });
+    </script>
+  </body>
+</html>
