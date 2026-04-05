@@ -29,7 +29,12 @@ export async function openRazorpayCheckout({
     return
   }
 
-  const key = import.meta.env.VITE_RAZORPAY_KEY_ID || 'YOUR_KEY_ID'
+  const key = import.meta.env.VITE_RAZORPAY_KEY_ID
+
+  if (!key || key === 'YOUR_KEY_ID') {
+    alert('Razorpay key is missing. Set VITE_RAZORPAY_KEY_ID in your deployment environment and redeploy.')
+    return
+  }
 
   const options = {
     key,
@@ -50,5 +55,9 @@ export async function openRazorpayCheckout({
   }
 
   const razorpay = new window.Razorpay(options)
+  razorpay.on('payment.failed', (response) => {
+    const message = response?.error?.description || 'Payment failed. Please retry with a valid test payment method.'
+    alert(message)
+  })
   razorpay.open()
 }
